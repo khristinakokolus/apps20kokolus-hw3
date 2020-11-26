@@ -4,6 +4,7 @@ import java.util.Arrays;
 import ua.edu.ucu.functions.MyComparator;
 import ua.edu.ucu.functions.MyFunction;
 import ua.edu.ucu.functions.MyPredicate;
+import ua.edu.ucu.smartarr.*;
 
 public class SmartArrayApp {
 
@@ -51,9 +52,51 @@ public class SmartArrayApp {
     public static String[]
             findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
 
-        // Hint: to convert Object[] to String[] - use the following code
-        //Object[] result = studentSmartArray.toArray();
-        //return Arrays.copyOf(result, result.length, String[].class);
-        return null;
+        MyPredicate predicate = new MyPredicate() {
+            @Override
+            public boolean test(Object t) {
+                return (((Student) t).getYear() == 2 &&
+                        ((Student) t).getGPA() >= 4);
+            }
+        };
+
+        MyComparator comparator = new MyComparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                String firstStudent = ((Student) o1).getSurname();
+                String secondStudent = ((Student) o2).getSurname();
+
+                int value = (int) firstStudent.charAt(0) -
+                        (int) secondStudent.charAt(0);
+                if (value < 0) {
+                    return -1;
+                }
+                else if (value > 0) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+
+            }
+        };
+
+        MyFunction function = new MyFunction() {
+            @Override
+            public Object apply(Object t) {
+                return ((Student) t).getSurname() + " " +
+                        ((Student) t).getName();
+            }
+        };
+
+        SmartArray studentSmartArray = new BaseArray(students);
+        studentSmartArray = new MapDecorator(
+            new SortDecorator(
+                new FilterDecorator(new DistinctDecorator(studentSmartArray),
+                        predicate),
+            comparator),
+        function);
+        Object[] result = studentSmartArray.toArray();
+        return Arrays.copyOf(result, result.length, String[].class);
     }
 }
