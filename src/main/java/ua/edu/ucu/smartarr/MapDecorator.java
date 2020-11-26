@@ -3,7 +3,7 @@ package ua.edu.ucu.smartarr;
 import ua.edu.ucu.functions.MyFunction;
 
 // Map every element to another object using MyFunction
-public class MapDecorator extends SmartArrayDecorator{
+public class MapDecorator extends SmartArrayDecorator {
     private MyFunction function;
 
     public MapDecorator(SmartArray smartArray, MyFunction function) {
@@ -17,9 +17,9 @@ public class MapDecorator extends SmartArrayDecorator{
     }
 
     @Override
-    public String operationDescription(){
-        String description = "Maps every element to another object " +
-                "using MyFunction.";
+    public String operationDescription() {
+        String description = "Maps every element to another object "
+                + "using MyFunction.";
         return description;
     }
 
@@ -29,7 +29,7 @@ public class MapDecorator extends SmartArrayDecorator{
     }
 
     public Object[] map() {
-        Object[] tempArray= new Object[smartArray.size()];
+        Object[] tempArray = new Object[smartArray.size()];
         int i = 0;
         for (Object element : smartArray.toArray()) {
             tempArray[i] = function.apply(element);

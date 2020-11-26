@@ -18,8 +18,8 @@ public class FilterDecorator extends SmartArrayDecorator {
 
     @Override
     public String operationDescription() {
-        String description = "Tests every element and removes it " +
-                "if it doesn't satisfy MyPredicate.";
+        String description = "Tests every element and removes it "
+                + "if it doesn't satisfy MyPredicate.";
         return description;
     }
 
@@ -35,7 +35,7 @@ public class FilterDecorator extends SmartArrayDecorator {
     }
 
 
-    public Object[] filter () {
+    public Object[] filter() {
         Object[] tempArray = new Object[smartArray.size()];
         int i = 0;
         for (Object element : smartArray.toArray()) {

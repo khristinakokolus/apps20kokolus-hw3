@@ -20,8 +20,8 @@ public class SortDecorator extends SmartArrayDecorator {
 
     @Override
     public String operationDescription() {
-        String description = "Sorts elements using MyComparator" +
-                " to compare them.";
+        String description = "Sorts elements using MyComparator"
+                + " to compare them.";
         return description;
     }
 

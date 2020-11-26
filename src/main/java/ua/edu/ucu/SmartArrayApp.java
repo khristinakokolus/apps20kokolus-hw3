@@ -4,7 +4,12 @@ import java.util.Arrays;
 import ua.edu.ucu.functions.MyComparator;
 import ua.edu.ucu.functions.MyFunction;
 import ua.edu.ucu.functions.MyPredicate;
-import ua.edu.ucu.smartarr.*;
+import ua.edu.ucu.smartarr.BaseArray;
+import ua.edu.ucu.smartarr.SmartArray;
+import ua.edu.ucu.smartarr.FilterDecorator;
+import ua.edu.ucu.smartarr.DistinctDecorator;
+import ua.edu.ucu.smartarr.MapDecorator;
+import ua.edu.ucu.smartarr.SortDecorator;
 
 public class SmartArrayApp {
 
@@ -20,8 +25,8 @@ public class SmartArrayApp {
 
         MyComparator cmp = new MyComparator() {
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((Integer) o1) - ((Integer) o2);
+            public int compare(Object firstO, Object secondO) {
+                return ((Integer) firstO) - ((Integer) secondO);
             }
         };
 
@@ -50,24 +55,26 @@ public class SmartArrayApp {
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
+            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(
+                    Student[] students) {
 
         MyPredicate predicate = new MyPredicate() {
+            private int gradesUpper = 4;
             @Override
             public boolean test(Object t) {
-                return (((Student) t).getYear() == 2 &&
-                        ((Student) t).getGPA() >= 4);
+                return (((Student) t).getYear() == 2
+                        && ((Student) t).getGPA() >= gradesUpper);
             }
         };
 
         MyComparator comparator = new MyComparator() {
             @Override
-            public int compare(Object o1, Object o2) {
-                String firstStudent = ((Student) o1).getSurname();
-                String secondStudent = ((Student) o2).getSurname();
+            public int compare(Object firstO, Object secondO) {
+                String firstStudent = ((Student) firstO).getSurname();
+                String secondStudent = ((Student) secondO).getSurname();
 
-                int value = (int) firstStudent.charAt(0) -
-                        (int) secondStudent.charAt(0);
+                int value = (int) firstStudent.charAt(0)
+                        - (int) secondStudent.charAt(0);
                 if (value < 0) {
                     return -1;
                 }
@@ -84,8 +91,8 @@ public class SmartArrayApp {
         MyFunction function = new MyFunction() {
             @Override
             public Object apply(Object t) {
-                return ((Student) t).getSurname() + " " +
-                        ((Student) t).getName();
+                return ((Student) t).getSurname() + " "
+                        + ((Student) t).getName();
             }
         };
 
