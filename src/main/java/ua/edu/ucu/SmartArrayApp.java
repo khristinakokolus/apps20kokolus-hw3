@@ -59,7 +59,7 @@ public class SmartArrayApp {
                     Student[] students) {
 
         MyPredicate predicate = new MyPredicate() {
-            private int gradesUpper = 4;
+            private final int gradesUpper = 4;
             @Override
             public boolean test(Object t) {
                 return (((Student) t).getYear() == 2
